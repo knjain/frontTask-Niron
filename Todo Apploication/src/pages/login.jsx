@@ -1,26 +1,37 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/userSlice";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Please fill in all fields");
       return;
     }
-    dispatch(login({ email, password }));
+      dispatch(login({ email, password }))
+      .then((result)=>{
+        console.log(result)
+        if(result.payload){
+          navigate("/dashboard"); // Redirect after successful login
+        }else{
+          setEmail("");
+          setPassword("");
+          alert("Invalid credentials")
+        }
+      }); 
+      
   };
 
   if (user) {
     return <Navigate to="/dashboard" />;
   }
-
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">

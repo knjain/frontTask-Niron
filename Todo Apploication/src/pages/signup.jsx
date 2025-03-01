@@ -35,11 +35,11 @@ const SignupPage = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-        <input name="firstName" placeholder="First Name" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
+        <input name="firstName" placeholder="First Name*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
         <input name="lastName" placeholder="Last Name" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="email" placeholder="Email" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
+        <input name="email" placeholder="Email*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
         <input name="phoneNumber" placeholder="Phone Number" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="password" type="password" placeholder="Password" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
+        <input name="password" type="password" placeholder="Password*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
         <button className="w-full bg-green-500 text-white p-2 rounded" onClick={handleSignup}>
           Sign Up
         </button>
