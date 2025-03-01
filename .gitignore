@@ -1,0 +1,57 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+.cache/
+out/
+
+# Local environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor and OS-specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing coverage reports
+coverage/
+jest/
+cypress/videos/
+cypress/screenshots/
+
+# React build artifacts
+/public/hot
+/public/static
+/public/assets
+
+# Mac system files
+._*
+.Spotlight-V100
+.Trashes
+
+# Vercel & CI/CD related files
+.vercel/
+.netlify/
+.github/
