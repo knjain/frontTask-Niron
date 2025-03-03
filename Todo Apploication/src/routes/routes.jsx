@@ -4,7 +4,7 @@ import LoginPage from "../pages/login";
 import SignUpPage from "../pages/signup";
 import Dashboard from "../pages/dashboard";
 import ProtectedRoute from "./protectedRoutes";
-
+import Layout from "../layout";
 const AppRoutes = () => {
   const user = useSelector((state) => state.user.user);
 
@@ -19,7 +19,9 @@ const AppRoutes = () => {
 
       {/* Protected Routes (Require Authentication) */}
       <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Route>
 
       {/* Redirect unknown routes */}
