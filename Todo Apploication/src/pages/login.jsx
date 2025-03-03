@@ -17,7 +17,7 @@ const LoginPage = () => {
     }
       dispatch(login({ email, password }))
       .then((result)=>{
-        console.log(result)
+        //console.log(result)
         if(result.payload){
           navigate("/dashboard"); // Redirect after successful login
         }else{

@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadTasks, removeTask, addNewTask, modifyTask } from "../redux/slices/taskSlice";
-import { addTaskToUI } from "../redux/slices/taskSlice"; 
-
-import { v4 as uuidv4 } from "uuid";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks.tasks || []);
+  const {tasks} = useSelector((state) => state.tasks || []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -53,20 +50,20 @@ const Dashboard = () => {
       if (isEdit) {
         await dispatch(modifyTask({ id: taskData._id, data: taskData })).unwrap();
       } else {
-        const tempId = uuidv4(); // ✅ Generate a unique temporary ID (only for frontend)
-        const newTask = { ...taskData, _id: tempId }; 
-        
-        // ✅ Add to UI immediately without sending `_id` to backend
-        dispatch(addTaskToUI(newTask));
-  
-        // ✅ Send task to backend without `_id`
         await dispatch(addNewTask(taskData)).unwrap();
-  
         dispatch(loadTasks());
       }
       handleCloseModal();
     } catch (error) {
       console.error("Error saving task:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(removeTask(id)).unwrap(); // ✅ Immediately removes from Redux state
+    } catch (error) {
+      console.error("Failed to delete task:", error);
     }
   };
 
@@ -112,12 +109,12 @@ const Dashboard = () => {
                     >
                       Edit
                     </button>
-                    <button
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      onClick={() => dispatch(removeTask(task._id))}
-                    >
-                      Delete
-                    </button>
+                  <button
+  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+  onClick={() => handleDelete(task._id)}
+>
+  Delete
+</button>
                   </td>
                 </tr>
               ))}

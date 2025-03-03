@@ -17,18 +17,21 @@ export const modifyTask = createAsyncThunk("tasks/update", async ({ id, data }) 
 });
 
 // Remove a task
-export const removeTask = createAsyncThunk("tasks/delete", async (id) => {
-  await deleteTask(id);
-  return id;
+export const removeTask = createAsyncThunk("tasks/delete", async (id, { rejectWithValue }) => {
+  try {
+    await deleteTask(id);
+    return id;
+  } catch (error) {
+    console.error("Delete API Call Failed:", error);
+    return rejectWithValue(error.message); // Ensure error is passed to Redux
+  }
 });
+
 
 const taskSlice = createSlice({
   name: "tasks",
   initialState: { tasks: [] },
   reducers: {
-    addTaskToUI: (state, action) => {
-      state.tasks.unshift(action.payload); // Add to top of array
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(loadTasks.fulfilled, (state, action) => {
@@ -43,7 +46,7 @@ const taskSlice = createSlice({
     });
     builder.addCase(removeTask.fulfilled, (state, action) => {
       state.tasks = state.tasks.filter(task => task._id !== action.payload);
-    });
+    });      
   },
 });
 
