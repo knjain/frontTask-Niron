@@ -22,13 +22,13 @@ const Navbar = () => {
     };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 shadow-lg">
+    <nav className="bg-orange-400 text-white p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-lg font-bold">
+        <h1 className="text-2xl font-bold">
           Welcome, {userName ? userName : "Guest"}!
         </h1>
         <button
-          className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+          className="bg-white text-black px-8 py-2 rounded hover:bg-red-600 transition"
           onClick={handleLogout}
         >
           Logout

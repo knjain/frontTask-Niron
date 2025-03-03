@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadTasks, removeTask, addNewTask, modifyTask } from "../redux/slices/taskSlice";
+import {
+  loadTasks,
+  removeTask,
+  addNewTask,
+  modifyTask,
+} from "../redux/slices/taskSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const {tasks} = useSelector((state) => state.tasks || []);
+  const { tasks } = useSelector((state) => state.tasks || []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -24,7 +29,12 @@ const Dashboard = () => {
       setTaskData(task);
       setIsEdit(true);
     } else {
-      setTaskData({ name: "", description: "", status: "Pending", priority: "Medium" });
+      setTaskData({
+        name: "",
+        description: "",
+        status: "Pending",
+        priority: "Medium",
+      });
       setIsEdit(false);
     }
     setIsModalOpen(true);
@@ -32,7 +42,12 @@ const Dashboard = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTaskData({  name: "", description: "", status: "Pending", priority: "Medium" });
+    setTaskData({
+      name: "",
+      description: "",
+      status: "Pending",
+      priority: "Medium",
+    });
     setIsEdit(false);
   };
 
@@ -48,7 +63,9 @@ const Dashboard = () => {
 
     try {
       if (isEdit) {
-        await dispatch(modifyTask({ id: taskData._id, data: taskData })).unwrap();
+        await dispatch(
+          modifyTask({ id: taskData._id, data: taskData })
+        ).unwrap();
       } else {
         await dispatch(addNewTask(taskData)).unwrap();
         dispatch(loadTasks());
@@ -61,7 +78,7 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await dispatch(removeTask(id)).unwrap(); // ✅ Immediately removes from Redux state
+      await dispatch(removeTask(id)).unwrap();
     } catch (error) {
       console.error("Failed to delete task:", error);
     }
@@ -72,7 +89,7 @@ const Dashboard = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Tasks</h1>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
           onClick={() => handleOpenModal()}
         >
           Add Task
@@ -95,9 +112,9 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {tasks.map((task,index) => (
+              {tasks.map((task, index) => (
                 <tr key={task._id} className="border-b">
-                  <td className="p-3">{index+1}</td>
+                  <td className="p-3">{index + 1}</td>
                   <td className="p-3">{task.name}</td>
                   <td className="p-3">{task.description}</td>
                   <td className="p-3">{task.status}</td>
@@ -109,12 +126,13 @@ const Dashboard = () => {
                     >
                       Edit
                     </button>
-                  <button
-  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-  onClick={() => handleDelete(task._id)}
->
-  Delete
-</button>
+                     
+                    <button
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      onClick={() => handleDelete(task._id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -126,7 +144,9 @@ const Dashboard = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-20 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg w-96">
-            <h2 className="text-xl font-bold mb-4">{isEdit ? "Edit Task" : "Add New Task"}</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {isEdit ? "Edit Task" : "Add New Task"}
+            </h2>
             <input
               type="text"
               name="name"
@@ -162,10 +182,16 @@ const Dashboard = () => {
               <option value="High">High</option>
             </select>
             <div className="flex justify-end space-x-3">
-              <button className="px-4 py-2 bg-gray-400 rounded" onClick={handleCloseModal}>
+              <button
+                className="px-4 py-2 bg-gray-400 rounded"
+                onClick={handleCloseModal}
+              >
                 Cancel
               </button>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={handleSubmit}
+              >
                 {isEdit ? "Save Changes" : "Add Task"}
               </button>
             </div>

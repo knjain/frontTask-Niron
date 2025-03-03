@@ -15,6 +15,6 @@ export const deleteTask = async (taskId) => {
 };
 
 export const createTask = async (taskData) => {
-  const response = await axiosInstance.post("/tasks",taskData);
+  const response = await axiosInstance.post("/tasks", taskData);
   return response.data;
 };

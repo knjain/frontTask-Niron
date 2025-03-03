@@ -10,8 +10,11 @@ const SignupPage = () => {
     email: "",
     phoneNumber: "",
     password: "",
+    confirmPassword: "",
   });
-  
+
+  const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -20,10 +23,17 @@ const SignupPage = () => {
   };
 
   const handleSignup = () => {
-    if (!form.firstName || !form.email || !form.password) {
-      alert("Please fill in all required fields.");
+    if (!form.firstName || !form.email || !form.password || !form.confirmPassword) {
+      setError("Please fill in all required fields.");
       return;
     }
+
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setError("");
     dispatch(signup(form));
   };
 
@@ -32,19 +42,31 @@ const SignupPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-        <input name="firstName" placeholder="First Name*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="lastName" placeholder="Last Name" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="email" placeholder="Email*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="phoneNumber" placeholder="Phone Number" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <input name="password" type="password" placeholder="Password*" className="w-full p-2 mb-3 border rounded" onChange={handleChange} />
-        <button className="w-full bg-green-500 text-white p-2 rounded" onClick={handleSignup}>
+    <div className="flex justify-center items-center h-screen min-h-screen bg-gradient-to-bl from-orange-500 via-yellow-300 to-yellow-100">
+      <div className="w-96 text-center">
+        <h1 className="text-3xl font-bold text-orange-600">To-Do Application</h1>
+        <p className="text-gray-700 mb-6">Stay organized and manage tasks effortlessly!</p>
+
+        <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+
+        {error && <p className="text-red-500 text-sm text-center mb-3">{error}</p>}
+
+        <input name="firstName" placeholder="First Name*" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+        <input name="lastName" placeholder="Last Name" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+        <input name="email" placeholder="Email*" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+        <input name="phoneNumber" placeholder="Phone Number" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+        <input name="password" type="password" placeholder="Password*" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+        <input name="confirmPassword" type="password" placeholder="Confirm Password*" className="w-full px-2 py-1 mb-5 border-b" onChange={handleChange} />
+
+        <button className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600 transition" onClick={handleSignup}>
           Sign Up
         </button>
-        <p className="mt-4 text-center">
-          Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
+
+        <p className="mt-4">
+          Already have an account?{" "}
+          <Link to="/login" className="text-orange-500 underline hover:text-orange-600">
+            Login
+          </Link>
         </p>
       </div>
     </div>
