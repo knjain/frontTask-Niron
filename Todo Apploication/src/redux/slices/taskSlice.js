@@ -50,6 +50,4 @@ const taskSlice = createSlice({
   },
 });
 
-export const { addTaskToUI } = taskSlice.actions;
-
 export default taskSlice.reducer;
