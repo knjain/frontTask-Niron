@@ -11,10 +11,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* If user is already logged in, redirect to Dashboard */}
-      <Route
-        path="/"
-        element={user ? <Navigate to="/login" /> : <Navigate to="/login" />}
-      />
+      <Route path="/" element={<Navigate to="/login" />} />
 
       {/* Public Route */}
       <Route path="/login" element={<LoginPage />} />
